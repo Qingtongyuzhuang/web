@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<style type="text/css">
+
+			.yzwcs{
+				position:absolute;
+				top:0px;
+				left:0px;
+			}
+
+		</style>
+
+		<script type="text/javascript">
+		    //1.种植植物
+			function clickzw(yzw){
+				var e = document.createElement("img");
+
+				e.src="zw.gif";
+				e.border=1;
+				e.xue=30;
+
+				e.style.position="absolute";
+				e.style.pixelLeft=yzw.style.pixelLeft+50;   
+				e.style.pixelTop=yzw.style.pixelTop+40;
+
+				document.body.appendChild(e);
+
+				document.body.onmousemove=function(){
+					e.style.pixelLeft=event.x-30;
+					e.style.pixelTop=event.y-40;
+				}
+
+				e.onclick=function(){
+					document.body.onmousemove=null;
+					e.onclick=null;
+					zwfire(e);
+				}
+			}
+
+			//2.发射一颗子弹的功能
+			function fire(xjzw){
+				var zd = document.createElement("img");
+				zd.src="zd.gif";
+				zd.gong=10;
+
+				zd.style.position="absolute";
+				zd.style.pixelLeft=xjzw.style.pixelLeft+60;   
+				zd.style.pixelTop=xjzw.style.pixelTop+20;
+
+				document.body.appendChild(zd);
+
+				var ksd = window.setInterval(function(){
+						zd.style.pixelLeft=zd.style.pixelLeft+20;
+
+					    if(zd.style.pixelLeft>=1000){
+							window.clearInterval(ksd);
+							zd.src="boom.gif";
+
+							window.setTimeout(function(){
+									zd.parentNode.removeChild(zd)
+							    },420);
+						}
+				 },50);
+			}
+
+			//3.连发子弹				
+			function zwfire(xjzw){
+				window.setInterval(function(){
+					  fire(xjzw);
+				},2000);
+			}
+		</script>
+	</head>
+
+	<body background="background1.jpg">
+
+		<img src="zw.gif" border="0" class="yzwcs" onclick="clickzw(this)"/>		 
+
+	</body>
+</html>
